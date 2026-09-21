@@ -1,42 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Warehouse Simulation v0.8.1</title>
 
-    <link rel="stylesheet" href="/static/css/theme.css">
-    <link rel="stylesheet" href="/static/css/layout.css">
-    <link rel="stylesheet" href="/static/css/warehouse.css">
-    <link rel="stylesheet" href="/static/css/decision.css">
+    <link rel="stylesheet" href="/static/css/theme.css" />
+    <link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/warehouse.css" />
+    <link rel="stylesheet" href="/static/css/decision.css" />
 
     <script src="/static/vendor/echarts.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>🏭 Warehouse Simulation v0.8.1</h1>
 
     <div class="toolbar">
-        <button id="nav-setup-btn">Setup</button>
-        <button id="nav-run-btn">Run</button>
-        <button id="nav-results-btn">Results</button>
-        <button id="nav-experiments-btn">Experiments</button>
-        <button id="nav-visualization-btn">Visualization</button>
-        <button id="nav-analysis-btn">Analysis</button>
-        <button id="nav-compare-btn">Compare</button>
-        <button id="nav-decision-btn">Decision</button>
+      <button id="nav-welcome-btn">Welcome</button>
+      <button id="nav-setup-btn">Setup</button>
+      <button id="nav-run-btn">Run</button>
+      <button id="nav-results-btn">Results</button>
+      <button id="nav-experiments-btn">Experiments</button>
+      <button id="nav-visualization-btn">Visualization</button>
+      <button id="nav-analysis-btn">Analysis</button>
+      <button id="nav-compare-btn">Compare</button>
+      <button id="nav-decision-btn">Decision</button>
     </div>
 
-    {% include "views/setup.html" %}
-    {% include "views/run.html" %}
-    {% include "views/fast.html" %}
-    {% include "views/results.html" %}
-    {% include "views/experiments.html" %}
-    {% include "views/visualization.html" %}
-    {% include "views/analysis.html" %}
-    {% include "views/compare.html" %}
-    {% include "views/decision.html" %}
-
-    {% include "modals/job_modal.html" %}
+    {% include "views/welcome.html" %} {% include "views/setup.html" %} {%
+    include "views/run.html" %} {% include "views/fast.html" %} {% include
+    "views/results.html" %} {% include "views/experiments.html" %} {% include
+    "views/visualization.html" %} {% include "views/analysis.html" %} {% include
+    "views/compare.html" %} {% include "views/decision.html" %} {% include
+    "modals/job_modal.html" %}
 
     <script src="/static/js/utils.js"></script>
     <script src="/static/js/state.js"></script>
@@ -46,5 +42,5 @@
     <script src="/static/js/decision.js"></script>
     <script src="/static/js/decision_forms.js"></script>
     <script src="/static/js/app.js"></script>
-</body>
+  </body>
 </html>

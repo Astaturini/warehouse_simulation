@@ -3,7 +3,7 @@
 // =====================================================================
 
 initViews();
-showView("setup");
+showView("welcome");
 
 if (
   typeof MultiSelect === "function" &&
@@ -52,6 +52,8 @@ on("fast-stop-btn", "click", async () => {
 // Navigation
 // =====================================================================
 
+on("nav-welcome-btn", "click", () => showView("welcome"));
+on("welcome-continue-btn", "click", () => showView("setup"));
 on("nav-setup-btn", "click", () => showView("setup"));
 on("nav-run-btn", "click", () => showView("run"));
 

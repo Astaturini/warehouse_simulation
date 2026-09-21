@@ -10,9 +10,9 @@ If code and documentation disagree, the code is the source of truth, but this fi
 
 Project Name: `warehouse_simulator`
 
-Current Version: `v0.9.1`
+Current Version: `v0.9.2`
 
-Previous Documented Version: `v0.9.0`
+Previous Documented Version: `v0.9.1`
 
 Version Meaning:
 
@@ -33,6 +33,22 @@ ECharts frontend
 Optuna required for decision.optimizer and decision.multiobjective
 pytest for development/testing
 ```
+
+## Document Update Note for v0.9.2
+
+This revision adds an in-app welcome page before the existing Setup workflow.
+
+```text
+Added templates/views/welcome.html
+Added the welcome view to the client-side view state machine
+Set the welcome view as the default initial view
+Added the welcome-continue-btn transition into Setup
+Updated the frontend layout styles for the welcome page
+```
+
+There are no Flask route changes. `GET /` continues to serve the application
+shell, and the backend never redirects. Setup remains the functional entry point
+after the welcome page.
 
 Run Command:
 
@@ -7750,6 +7766,7 @@ cfg-layout-preset layout visibility hook
 ### Existing nav IDs
 
 ```text
+nav-welcome-btn
 nav-setup-btn
 nav-run-btn
 nav-results-btn
@@ -7768,6 +7785,7 @@ nav-decision-btn
 ### Existing view IDs
 
 ```text
+view-welcome
 view-setup
 view-run
 view-fast
@@ -7776,6 +7794,12 @@ view-experiments
 view-visualization
 view-analysis
 view-compare
+```
+
+### Welcome IDs
+
+```text
+welcome-continue-btn
 ```
 
 New view ID:

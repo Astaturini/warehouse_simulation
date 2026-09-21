@@ -18,7 +18,7 @@ const experimentListEl = document.getElementById("experiment-list");
 
 const views = {};
 
-let currentView = "setup";
+let currentView = "welcome";
 let activeRunId = null;
 let robotElements = {};
 let previousWarehouseKey = null;
@@ -108,7 +108,7 @@ class MultiSelect {
 // =====================================================================
 
 function initViews() {
-    ["setup", "run", "fast", "results", "experiments", "visualization", "analysis", "compare", "decision"]
+    ["welcome", "setup", "run", "fast", "results", "experiments", "visualization", "analysis", "compare", "decision"]
         .forEach(name => { views[name] = document.getElementById(`view-${name}`); });
 }
 

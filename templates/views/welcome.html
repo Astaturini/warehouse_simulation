@@ -1,0 +1,114 @@
+<section id="view-welcome" class="view welcome-view">
+  <div class="welcome-hero">
+    <div class="welcome-kicker">A laboratory for warehouse decisions</div>
+    <h2>Welcome to Warehouse Simulation</h2>
+    <p class="welcome-lede">
+      Explore how layout, robot behavior, scheduling, demand, and traffic
+      management shape the performance of an automated warehouse.
+    </p>
+    <button id="welcome-continue-btn" class="welcome-cta" type="button">
+      Continue to Setup <span aria-hidden="true">-&gt;</span>
+    </button>
+  </div>
+
+  <section class="welcome-workflow" aria-labelledby="welcome-workflow-title">
+    <div class="welcome-section-heading">
+      <div class="welcome-kicker">Start here</div>
+      <h3 id="welcome-workflow-title">How to use it</h3>
+      <p>Move from a question to evidence in three quick steps.</p>
+    </div>
+    <div class="welcome-steps">
+      <article class="welcome-step">
+        <span class="welcome-step-number">01</span>
+        <h4>Configure</h4>
+        <p>
+          Choose the warehouse, robots, algorithms, demand, and stopping rules
+          in Setup.
+        </p>
+      </article>
+      <article class="welcome-step">
+        <span class="welcome-step-number">02</span>
+        <h4>Run</h4>
+        <p>
+          Start an experiment and follow the live warehouse state as tasks move
+          through the system.
+        </p>
+      </article>
+      <article class="welcome-step">
+        <span class="welcome-step-number">03</span>
+        <h4>Understand</h4>
+        <p>
+          Use Results, Experiments, Analysis, Compare, and Decision to inspect
+          what changed and why.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <div class="welcome-content-grid">
+    <section class="welcome-story welcome-story-wide">
+      <div class="welcome-kicker">The project</div>
+      <h3>What this project does</h3>
+      <p>
+        This simulator models warehouse operations so you can configure a
+        scenario, run it, inspect the results, and compare decisions with
+        reproducible data. The goal is to make warehouse performance easier to
+        explore, explain, and improve in an educational and research setting.
+      </p>
+    </section>
+
+    <section class="welcome-story welcome-inspiration">
+      <div class="welcome-kicker">The beginning</div>
+      <h3>Inspiration</h3>
+      <p>
+        I first encountered warehouse operations and layout in early 2025 while
+        learning about plant layout and material handling. Autonomous Mobile
+        Robots (AMRs) immediately caught my attention. Around the same time,
+        control theory introduced me to Brian Douglas from MATLAB and his work
+        on swarm robotics: the idea that simple rules and hardware can produce
+        powerful collective behavior.
+      </p>
+      <p>
+        I originally imagined a research proposal around that idea, but a
+        physical implementation was far beyond my budget as a student. I began
+        learning simulation instead, moving from a spring-mass model in C and
+        raylib, to heat transfer in Python, and then to a bottled-water
+        production model. Each project taught me something, even when the data
+        or the question was not quite ready.
+      </p>
+      <p>
+        This warehouse project brought those threads together. My focus is less
+        on AMR physics or decentralised control for now, and more on how
+        different parameters affect warehouse performance and how to optimise
+        it. Swarm behaviour, user-designed layouts, and deeper decision support
+        are directions I hope to add in the future.
+      </p>
+    </section>
+
+    <section class="welcome-story welcome-author">
+      <div class="welcome-kicker">The author</div>
+      <h3>Hi, I am Hope Mutungi</h3>
+      <p>
+        I am a manufacturing engineering graduand who enjoys using programming
+        to build practical engineering solutions. I am Malawian, and outside
+        engineering I enjoy tennis, football, basketball, and motorsport.
+      </p>
+      <p>
+        I hope you enjoy the project. Questions and suggestions are welcome at
+        <a href="mailto:mutungihope@gmail.com">mutungihope@gmail.com</a>.
+      </p>
+    </section>
+
+    <section class="welcome-story welcome-technical">
+      <div class="welcome-kicker">Under the hood</div>
+      <h3>What it means technically</h3>
+      <p>
+        The backend serves the application shell at <code>GET /</code>. The
+        client-side view state machine opens this welcome view first, then the
+        Continue button moves into the existing Setup view. Setup remains the
+        functional entry point for configuring a run; the welcome page simply
+        gives new users their bearings.
+      </p>
+    </section>
+  </div>
+</section>
