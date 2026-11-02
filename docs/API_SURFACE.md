@@ -10,13 +10,15 @@ If code and documentation disagree, the code is the source of truth, but this fi
 
 Project Name: `warehouse_simulator`
 
-Current Version: `v0.9.2`
+Current Version: `v1.0.0`
 
-Previous Documented Version: `v0.9.1`
+Previous Documented Version: `v0.9.2`
 
 Version Meaning:
 
 ```text
+v1.0.0 = v0.9.2 frontend welcome page + final v1.0.0 application shell markup
+v0.9.2 = v0.9.1 frontend + in-app welcome page before Setup
 v0.8.3 = v0.8.2 backend + Phase 3 run-linked actions + Setup v0.7.1 demand/layout fields + Phase 4 guided decision forms
 v0.8.2 = v0.8.1 backend + Decision Frontend / Decision Web API / Decision Job API / UI refactor
 ```
@@ -34,21 +36,24 @@ Optuna required for decision.optimizer and decision.multiobjective
 pytest for development/testing
 ```
 
-## Document Update Note for v0.9.2
+## Document Update Note for v1.0.0
 
-This revision adds an in-app welcome page before the existing Setup workflow.
+This is the final v1.0.0 frontend release. It preserves the v0.9.2 welcome
+workflow and updates the application shell to display the v1.0.0 product
+version.
 
 ```text
-Added templates/views/welcome.html
-Added the welcome view to the client-side view state machine
-Set the welcome view as the default initial view
-Added the welcome-continue-btn transition into Setup
-Updated the frontend layout styles for the welcome page
+Added the Welcome navigation button and welcome view to the final shell
+Included templates/views/welcome.html before the Setup view
+Kept Welcome as the default initial client-side view
+Kept the welcome-continue-btn transition into Setup
+Updated the shell heading to Warehouse Simulation v1.0.0
+Updated the final HTML document structure and layout styles
 ```
 
-There are no Flask route changes. `GET /` continues to serve the application
-shell, and the backend never redirects. Setup remains the functional entry point
-after the welcome page.
+There are no Flask route, backend API, decision schema, simulation core, or
+stored artifact format changes in v1.0.0. `GET /` continues to serve the
+application shell, and view transitions remain client-side.
 
 Run Command:
 
@@ -1041,6 +1046,7 @@ New frontend structure:
 templates/
 ├── index.html
 ├── views/
+│   ├── welcome.html
 │   ├── setup.html
 │   ├── run.html
 │   ├── fast.html
@@ -1127,7 +1133,6 @@ No decision math moved to the frontend.
 Frontend limitations:
 
 ```text
-Advanced decision charts are not implemented yet.
 Spatial heatmap overlay is not implemented yet.
 Demand CSV and layout file selection use local trusted relative-path text inputs, not managed dropdowns or uploads.
 Guided robustness supports multi-objective study IDs and explicit candidates JSON, but not direct optimizer-summary import.
@@ -1138,12 +1143,16 @@ Study guided form supports simple factor entry, but does not yet provide factori
 Job system limitations:
 
 ```text
-Job state is in-memory only.
-Jobs are lost from the UI on Flask restart.
-Running jobs cannot be cancelled.
-Progress reporting is not implemented.
-Template endpoints are not implemented.
-File selection/upload endpoints are not implemented.
+Running jobs accept cooperative cancellation requests and finish as cancelled when the module returns.
+Progress reporting is implemented through the job progress payload.
+```
+
+The following older v0.8.2 limitations are no longer current:
+
+```text
+Job metadata is persisted in data/decision_jobs.json.
+Queued/running jobs recovered after Flask restart are marked failed with an interruption message.
+Template and local file endpoints are implemented.
 ```
 
 Decision API limitations:
@@ -4465,15 +4474,15 @@ Current cancellation policy:
 
 ```text
 queued jobs can be cancelled
-running jobs cannot be cancelled yet
+running jobs accept cooperative cancellation requests and finish as cancelled when the module returns
 finished/failed/cancelled jobs cannot be cancelled
 ```
 
 Current persistence policy:
 
 ```text
-job state is in-memory only
-job list is lost on Flask restart
+job metadata is persisted in data/decision_jobs.json
+queued/running jobs recovered after Flask restart are marked failed with an interruption message
 generated artifacts remain on disk
 ```
 
@@ -6119,7 +6128,7 @@ Example conflict error:
 
 ```json
 {
-  "error": "Running decision jobs cannot be cancelled yet. Only queued jobs can be cancelled."
+  "error": "Cannot cancel job with status 'finished'."
 }
 ```
 
@@ -6431,12 +6440,9 @@ Large factorial designs can create many runs.
 
 ## Template Endpoints
 
-Not implemented in v0.8.2.
-
-Planned:
+Implemented:
 
 ```text
-GET /api/decision/templates
 GET /api/decision/templates/<module>
 ```
 
@@ -7302,8 +7308,13 @@ static/
     ├── warehouse.js
     ├── experiments.js
     ├── decision.js
+    ├── decision_forms.js
     └── app.js
 ```
+
+  The v1.0.0 shell also includes `templates/views/welcome.html`, and
+  `static/js/decision_forms.js` loads after `static/js/decision.js` and before
+  `static/js/app.js`.
 
 Important note:
 
@@ -7327,6 +7338,7 @@ Correct order:
 <script src="/static/js/warehouse.js"></script>
 <script src="/static/js/experiments.js"></script>
 <script src="/static/js/decision.js"></script>
+<script src="/static/js/decision_forms.js"></script>
 <script src="/static/js/app.js"></script>
 ```
 
@@ -7796,16 +7808,16 @@ view-analysis
 view-compare
 ```
 
-### Welcome IDs
-
-```text
-welcome-continue-btn
-```
-
 New view ID:
 
 ```text
 view-decision
+```
+
+### Welcome IDs
+
+```text
+welcome-continue-btn
 ```
 
 ### Setup IDs
@@ -8136,6 +8148,27 @@ New guided form classes:
 .decision-guided-warning
 ```
 
+Welcome view classes added in v1.0.0:
+
+```text
+.welcome-view
+.welcome-hero
+.welcome-kicker
+.welcome-lede
+.welcome-cta
+.welcome-workflow
+.welcome-section-heading
+.welcome-steps
+.welcome-step
+.welcome-step-number
+.welcome-content-grid
+.welcome-story
+.welcome-story-wide
+.welcome-inspiration
+.welcome-author
+.welcome-technical
+```
+
 ---
 
 ## Frontend Phase Status, v0.8.2
@@ -8189,14 +8222,12 @@ Error states
 Missing from Phase 1 ideal scope:
 
 ```text
-Advanced charts for Monte Carlo histograms
-Advanced tornado charts
-Pareto scatter charts
-Optimizer objective-vs-trial charts
 Spatial heatmap overlay
 ```
 
-These are Phase 5 visualization items.
+The four listed decision charts are covered by the Phase 5 chart payload routes
+and frontend wrappers documented below. The spatial heatmap overlay remains a
+future item.
 
 ### Phase 2 — Job launcher
 
@@ -8225,10 +8256,10 @@ Current limitations:
 
 ```text
 Guided forms are available for supported modules; the advanced JSON editor remains available.
-Running jobs cannot be cancelled yet.
-Job progress is status-only; progress field is currently null.
-Job history is in-memory only.
-Template endpoints are not implemented; templates are client-side.
+Running jobs accept cooperative cancellation requests and finish as cancelled when the module returns.
+Job progress is exposed through the progress payload.
+Job metadata is persisted in data/decision_jobs.json.
+Queued/running jobs recovered after Flask restart are marked failed with an interruption message.
 ```
 
 ### Phase 3 — Run-linked actions
@@ -8311,16 +8342,12 @@ Backend validation remains authoritative.
 Status:
 
 ```text
-Not started
+Chart payload routes and the five chart wrappers are complete.
 ```
 
-Planned:
+Remaining:
 
 ```text
-Monte Carlo histograms
-Tornado charts
-Pareto scatter charts
-Robustness probability bars
 Spatial heatmap overlay optional
 Guided pipeline from baseline to robustness
 ```
@@ -8672,6 +8699,7 @@ static/js/charts.js
 static/js/warehouse.js
 static/js/experiments.js
 static/js/decision.js
+static/js/decision_forms.js
 static/js/app.js
 ```
 
@@ -8684,6 +8712,7 @@ Old v0.5/v0.6 DOM IDs and functions remain conceptually preserved, but the curre
 Existing UI workflow remains:
 
 ```text
+Welcome
 Setup
 Run
 Fast
@@ -8779,7 +8808,9 @@ Never use the Flask development server when hosted.
 
 Ephemeral filesystems lose experiments on restart.
 
-Decision job state is also in-memory in v0.8.2, so Flask restarts lose the active job list.
+Decision job metadata is persisted in `data/decision_jobs.json`. Queued and
+running jobs recovered after Flask restart are marked failed with an
+interruption message.
 
 ECharts may load from CDN or be vendored at:
 
